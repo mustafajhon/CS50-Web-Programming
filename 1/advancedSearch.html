@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .queryInputs,.submitInputs{
+                position: absolute;
+                left: 300px;
+
+
+            }
+
+            .submitInputs{
+                color:white;
+                background-color: blue;
+            }
+        </style>
+
+        <title> Advanced Search</title>
+    </head>
+    <body>
+        Find all the pages containing
+        <form action="https://www.google.com/search">
+            <ul>...all following words: <input class="queryInputs" name ="as_q" type="text" ></ul> <!---all words in page -->
+            <ul>...specific phrase <input class="queryInputs"  name ="as_epq" type="text" ></div></ul>
+            <ul>...any of specified words<input class="queryInputs" name ="as_oq" type="text" >  <!--any of the word in page --></ul>
+            <ul>none of the following words<input class="queryInputs" name ="as_eq" type="text" >  <!--none of the words in page --></ul>
+            <ul><input class="submitInputs" type="submit" value="Advanced Search"></ul>
+       </form>
+
+    </body>
+
+</html>

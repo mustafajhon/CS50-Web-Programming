@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang ="en">
+
+<head>
+    <title>Colors</title>
+    <script>
+        //document.addEventListener('DOMContentLoaded',function(){
+        document.addEventListener('DOMContentLoaded',() => {            
+            // name = document.getElementById("#red");
+
+
+
+            selection = document.querySelector('#colorSelector');
+            selection.style.color = selection.value;
+            option = selection.options;
+            // for (var i =0;i<option.length; i++){
+            //     option[i].style.color = option[i].value; 
+            // }
+
+            selection.querySelectorAll('option').forEach( option => {
+                option.style.color = option.value; 
+
+            })
+
+
+            selection.onchange = () => {
+                    document.querySelector('#Hello').style.color = selection.value;
+                    selection.style.color = selection.value;
+
+            }
+            
+
+            // buttons= document.querySelectorAll('button');
+            // len = buttons.length;
+            // for (var i=0; i<len; i++){
+            //     btn = document.querySelector(`#${buttons[i].id}`)
+            //     name = btn.textContent;
+            //     btn.style.color = name;
+           
+
+            // }
+            // //buttons.forEach(function(button){
+            // buttons.forEach(button => {
+            //     button.onclick = function(){
+            //         document.querySelector('#Hello').style.color = button.dataset.color;
+            //     }
+            // })                
+
+        });
+    </script>
+</head>
+<body>
+    <h1 id="Hello">Hello</h1>
+    <select id="colorSelector">
+        <option value = "red"> red</option>            
+        <option value = "black"> black</option>
+        
+        <option value = "blue"> blue</option>        
+    </select>
+    <!-- <button id = "red" data-color = "red" > red</button> -->
+    <!-- <button id = "blue" data-color = "blue" > Blue</button> -->
+    <!-- <button id = "green"data-color = "green" > Green</button> -->
+</body>
+
+</html>

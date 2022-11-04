@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Webpage</title>
+        <style>
+            @keyframes hide{
+                0%{
+                    opacity: 1;
+                    height: 100%;
+                    line-height: 100%;
+                    padding: 20px;
+                    margin-bottom: 10px;
+                
+                }
+                75%{
+                    opacity: 0;
+                    height: 100%;
+                    line-height: 100%;
+                    padding: 20px;
+                    margin-bottom: 10px;
+                }
+
+                100%{
+                    opacity: 0;
+                    height: 0px;
+                    line-height: 0px;
+                    padding: 0px;
+                    margin-bottom: 0px;
+
+                }
+            }
+            .post {
+                background-color: #77dd11;
+                padding: 20px;
+                margin: 10px;
+                animation-name: hide;
+                animation-duration : 2s;
+                animation-fill-mode: forwards;
+                animation-play-state: paused;
+            }
+
+            body {
+                padding-bottom: 50px;
+            }
+        </style>
+        <script>
+
+            // Start with first post
+            let counter = 1;
+
+            // Start with first Page
+            let pageNo = 1;            
+
+            // Load posts 20 at a time
+            let quantity = 20;
+
+            
+            // new post
+
+
+
+            // Add a new post with given contents to DOM
+            function add_post(contents) {
+                const post = document.createElement('div');
+                post.className = 'post';
+                //post.innerHTML = contents;
+                post.innerHTML = `${contents} <button class ="hide">Hide</button>`;
+                // Add post to DOM
+                document.querySelector('#posts').append(post);
+            };
+
+            function clearScreen(contents){
+                const post = document.createElement('div');
+                post.className = 'post';
+                post.innerHTML = contents;
+
+                if (document.querySelectorAll('.post').length > 0){
+                    document.querySelectorAll('.post').forEach(post => {
+                        post.remove();                    
+                    });
+                }
+
+
+            }
+
+            document.addEventListener('click',event=>{
+                const element = event.target;
+                if(element.className === 'hide'){
+                    element.parentElement.style.animationPlayState='running';
+                    element.parentElement.addEventListener('animationend', ()=>{
+                        element.parentElement.remove();
+                    });
+                   
+                }
+
+            })
+            // // Load next set of posts
+            // function load() {
+
+            //     // Set start and end post numbers, and update counter
+            //     let start = counter;
+            //     let end = start + quantity - 1;
+            //     counter = end + 1;
+
+            //     // Get new posts and add posts
+            //     fetch(`/posts?start=${start}&end=${end}`)
+            //         .then(response => response.json())
+            //         .then(data => {
+            //             data.posts.forEach(add_post);
+            //     })
+            // };
+
+
+            // Load next set of posts
+            function loadPosts() {
+                clearScreen();
+
+                let pageNo = parseInt(document.querySelector('#pageNumber').value);
+                let postsAmount = parseInt(document.querySelector('#postsOnPage').value);
+                // Set start and end post numbers, and update counter
+                const start = (pageNo-1)*postsAmount+1;
+                const end = start+postsAmount-1;
+                console.log(start);
+                console.log(pageNo);
+                console.log(postsAmount);
+                console.log(end);
+                // Get new posts and add posts
+                fetch(`/posts?start=${start}&end=${end}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.posts.forEach(add_post);
+                })
+            };            
+
+
+
+            // When DOM loads, render the first 20 posts
+            document.addEventListener('DOMContentLoaded',()=>{
+
+                for(let i =0; i<5;i++){
+                    let pageNumberVal = i+1;
+                    document.querySelector('#pageNumber').options[document.querySelector('#pageNumber').options.length] = new Option(pageNumberVal,pageNumberVal);
+
+                    let postsOnPageVal = i*quantity+quantity;
+                    document.querySelector('#postsOnPage').options[document.querySelector('#postsOnPage').options.length] = new Option(postsOnPageVal,postsOnPageVal);
+                }
+
+                document.querySelector('#pageNumber').selectedIndex = 0;
+                document.querySelector('#postsOnPage').selectedIndex = 0;
+
+                
+                
+                //load;
+
+
+            } );
+
+            // If scrolled to bottom, load the next 20 posts
+            // window.onscroll = () => {
+            //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            //         load();
+            //     }
+            // };
+
+
+
+        </script>
+    </head>
+    <body>
+        <select id="pageNumber"> Page Number</select>
+        <select id="postsOnPage"> Posts On page</select>
+        <button onclick = "loadPosts()" >Go</button>
+        <div id="posts">
+        </div>
+    </body>
+</html>

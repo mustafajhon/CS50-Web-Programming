@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            Single Page
+        </title>
+        <style>
+            div{
+                display: none;
+            }
+        </style>
+        <script>
+
+            function showPage(page){
+                divs = document.querySelectorAll('div');
+                divs.forEach(div=>{
+                    div.style.display = 'none';
+                })
+                document.querySelector(`#${page}`).style.display = 'block';
+            }
+
+
+            addEventListener('DOMContentLoaded',()=>{
+                buttons  = document.querySelectorAll('#showPage');
+
+                buttons.forEach( button => {
+                    var toggle;
+                    button.onclick = function(){
+                        
+                        // 1. just show and toggle 
+                        //console.log("dupa");
+                        //var value = '#'+button.getAttribute("value").toString();
+
+                        // if( toggle == 0 || toggle == undefined){
+                        //     document.querySelector(value).setAttribute("style","display:block");
+                        //     toggle = 1;
+                        // }
+                        // else if ( toggle == 1 ){
+                        //     document.querySelector(value).setAttribute("style","display:none");
+                        //     toggle = 0;
+                        // }
+                        
+                        // 2.  hide and show other areas 
+                        //let value = button.getAttribute("value");//.toString();                            
+                        //showPage(value);
+
+                        // 3.  hide and show other areas - different variatn
+                        let value = this.dataset.page;
+                        showPage(value);
+
+                    }
+                });
+
+
+
+
+
+            })
+        </script>
+    </head>
+    <body>
+        <button data-page="page1" id="showPage" value = "page1" >Show Page 1 </button>
+        <button data-page="page2" id="showPage" value = "page2">Show Page 2 </button>
+        <button data-page="page3" id="showPage" value = "page3">Show Page 3 </button>
+        <div id="page1">
+            This is Page 1 
+        </div>
+        <div id="page2" >
+            This is Page 2
+        </div>
+        <div id="page3" >
+            This is Page 3
+        </div> 
+    </body>
+</html>

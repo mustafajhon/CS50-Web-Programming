@@ -1,0 +1,22 @@
+{% extends "tasks/layout.html" %}
+{% block body %}
+    <h1>
+        <form action="{%url 'tasks:index' %}" method ="post">
+            <ul id="taskList" name = "taskList">
+                {% for item in tasks %}
+                    <li>
+
+                            {% csrf_token %}
+                            {{item}}
+                            <a href="{% url 'delete' item.id %}">Delete</a>
+
+                    </li>
+                {% empty %}
+                    <li>No Items</li>
+
+                {% endfor %}
+            </ul>
+        </form> 
+    </h1>
+    <a href="{% url 'tasks:add' %}"> Add a new Task</a>
+{% endblock %}

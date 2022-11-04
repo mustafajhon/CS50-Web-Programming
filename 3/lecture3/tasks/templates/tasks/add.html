@@ -1,0 +1,21 @@
+{% extends "tasks/layout.html" %}
+{% block body %}
+
+    <h1>
+<!-- 
+        <form method="post">
+            <input value='{{val}}' name = 'myTasks'>{{val}} type="text" placeholder="add Task here">
+            <input type="submit"  >
+       </form> -->
+        <form action="{%url 'tasks:add' %}" method ="post">
+            {% csrf_token %}
+            <!-- <label for ="newTask"> Add new task: </label> -->
+            {{form}}
+            <!-- <input  id = "newTask" name = 'newTask' type="text" placeholder="add Task here" >  -->
+            <!-- value ="{{tasks}}"> -->
+            <input type="submit" value = "Submit"  >
+        </form>
+
+       <a href="{% url 'tasks:index' %}"> Check list</a>
+    </h1>
+{% endblock %}

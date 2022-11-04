@@ -1,0 +1,19 @@
+div {
+  font-size: 18px;
+}
+div p {
+  color: blue;
+}
+div ul {
+  color: green;
+}
+
+ul {
+  color: red;
+}
+
+p {
+  color: yellow;
+}
+
+/*# sourceMappingURL=nesting.css.map */

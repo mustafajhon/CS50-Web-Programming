@@ -1,0 +1,29 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>Watchlist</h2>
+
+
+
+
+    {% for listing in watchlist %}
+        <form action="{% url 'watchlist' %}" name ="removeFromWatchlist"  method="post">
+            {% csrf_token %}
+            <box style="display:inline">
+                {{ listing}}
+                <input type ="hidden" name = "removeFromWatchlist">   
+                <input type ="hidden" value = "{{ listing.id }}" name = "listing_id">   
+                <input type="submit" value = "Remove" name = "Remove">
+
+                {% if message %}
+                    <box style="color:red" >{{message}}</box>
+                {% endif %}
+            </box>
+        </form>
+
+    {% endfor %}
+
+
+
+{% endblock %}

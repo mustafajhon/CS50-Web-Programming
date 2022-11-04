@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="wrapper">
+    <div class = "box">
+        <h2 name="title">{{listing.title}}
+            <form action="{% url 'watchlist'%}"  method="post">
+                {% csrf_token %}
+                <input type ="hidden" name = "listingToWatchlist">   
+                <input type ="hidden" value = "{{ listing.id }}" name = "listing_id">   
+                <input type="submit" value = "Add to watchlist">
+            </form>           
+        </h2>
+
+            {% if listing.imageUrl %}
+                <img src = "{{listing.imageUrl}}" >
+            {% endif %}
+    </div>
+    <div class = "box">
+        <h2 autofocus name = "seller" >{{listing.seller}}</h2>
+        <h2 name="title">{{listing.title}}</h2>
+        <h2 name="askingPrice"> Current Price : {{highest_bid.bidPrice}} by {{highest_bid.buyer}}</h2>
+        
+
+        
+        <form action="{% url 'listing' listing.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input autofocus class="form-control" type="number" name="bidPrice" step = "0.01" placeholder="Set bid price">
+            </div>
+            <input class="btn btn-primary" type="submit" value="Make a Bid">
+        </form>
+    </div>
+</div>
+
+<textarea autofocus class="form-control" name = "description" disabled >{{listing.description}}</textarea>
+
+
+
+
+{% endblock %}

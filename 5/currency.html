@@ -1,0 +1,56 @@
+ <!DOCTYPE html>>
+<html lang ="en">
+<head>
+    <title>Currency Exchange</title>
+    <script>
+        document.addEventListener('DOMContentLoaded',() => {         
+            var myHeaders = new Headers();
+            myHeaders.append("apikey", "XL4c5sQNm0yjWxbEuVnxWnUj4PnBTALg");
+
+            var requestOptions = {
+            method: 'GET',
+            redirect: 'follow',
+            headers: myHeaders
+            };
+
+            fetch("https://api.apilayer.com/exchangerates_data/latest?base=USD", requestOptions)
+                .then(response=>response.json())
+                .then(data=>{
+                    const rate = data.rates.EUR;
+                    const rates = data.rates;
+                    var select = document.getElementById("rates");
+                    var div = document.getElementById("result");
+
+                    for(index in rates){
+                        select.options[select.options.length] = new Option(index,rates[index])
+                    }
+
+                    
+
+                    select.addEventListener('change' ,  ()=> {
+                        div.innerHTML = `1 USD is equal to ${select.value} ${select.options[select.selectedIndex].text} `  ;
+                    });
+                //    document.querySelector('body').innerHTML = `1 USD is equal to ${rate.toFixed(3)} Euro`  ;
+
+
+                })
+                .catch(error =>{
+                    console.log('Error:' ,error)
+                } );
+        });
+    </script>
+</head>
+<body> 
+    <!-- <form>
+        <input id="Currency" placeholder="Currency" type="text" >
+            <datalist id="rates"></datalist> 
+
+        <input type="submit"value="Convert">
+    </form> -->
+
+    <select id="rates"></select>
+
+    <div id="result">
+    </div>
+</body>
+</html>

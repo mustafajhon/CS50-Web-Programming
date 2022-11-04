@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Single Page</title>
+        <style>
+            /* body{
+                height: 1620px;
+
+            } */
+
+            #endOfPage{
+                position:absolute;
+                bottom:50px;
+                width:100%;
+                height:60px;   /* Height of the footer */
+                background:#6cf;
+            }
+        </style>
+        <script>
+
+            window.onpopstate = function(event){
+                console.log(event.state.section);
+                showSection(event.state.section);
+            }
+            function showSection(section) {
+                
+                fetch(`/sections/${section}`)
+                .then(response => response.text())
+                .then(text => {
+                    console.log(text);
+                    document.querySelector('#content').innerHTML = text;
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                let height = 1620;
+                let addheight = 1620;
+                document.querySelector('body').style.height = `${height}px`;
+                document.querySelectorAll('button').forEach(button => {
+                    button.onclick = function() {
+                        const section = this.dataset.section;
+                        history.pushState({section:section},"",`section${section}`)
+                        //history.pushState(null,"",`section${section}`)
+                        showSection(this.dataset.section);
+                    };
+                });
+
+                
+                window.onscroll = function(){
+                    if (window.scrollY + window.innerHeight >= document.body.offsetHeight ) {                        
+                        height = addheight + height; 
+                        document.querySelector('body').style.height = `${height}px`;;
+                        
+
+
+                    }
+                    // else{
+                    //     document.querySelector('#endOfPage').style.display = 'none'; 
+                    // }
+                }
+
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Hello!</h1>
+        <button data-section="1">Section 1</button>
+        <button data-section="2">Section 2</button>
+        <button data-section="3">Section 3</button>
+        <div id="content">
+        </div>
+
+        <div id="endOfPage">
+            end of page detected 
+        </div>
+    </body>
+</html>
