@@ -9,7 +9,7 @@
 * 5.JavaScript
 * 6.User Interfaces
 * 7.Testing, CI/CD
-* 8.Scalability and Security
+* 8.Scalability and Security- ongoing 
 
 ## Problem Sets - Course Projects 
 * Project 1 - Wikipedia template site 
