@@ -1,0 +1,12 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<h1>Searched Results for {{query}}</h1>
+    {% for entry in entries %}    
+        <a class="nav-link" href="{% url 'index' user.username %}">{{entry}}</a>
+    {% endfor %}
+<script>
+</script>
+
+{% endblock %}
+

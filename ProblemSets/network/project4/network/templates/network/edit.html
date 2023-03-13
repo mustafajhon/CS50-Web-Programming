@@ -1,0 +1,27 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+    <h2>Edit Data </h2>
+
+    <form action="{% url 'edit' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control" autofocus type="text" name="username" value="{{ user.username }}" disabled>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="email" name="email" value="{{ user.email }}" >
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="password" value="{{ user.password }}">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="confirmation" value="{{ user.password }}">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="date" name="birthday" id="birthday"  value = "{{ user.birthday|date:'Y-m-d' }}">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Edit Data">
+    </form>
+{% endblock %}
+

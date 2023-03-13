@@ -1,0 +1,37 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <!--show New Post Form-->
+    {% if user.username == userpage%}
+        <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            {{newPost}}
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+    <!--show sall posts-->
+    {% for post in posts %}
+        {{post.}}
+        <div style="border: thin solid black">
+
+            <p1 id="text">{{post.newPost}} </p1><br>
+            <p1 id="dateTime">{{post.postDate}}</p1><br>
+            <div id="likesCount"><a id= "allPostLikes" data-post_id = "{{post.id}}" role="button">Likes : {{post.likes}}</a><div id="newLikeButton" data-post_id = "{{post.id}}" role="button"><img class="likesImage" src="./static/network/likes.png"/></div> </div>
+
+        </div>
+        
+        
+    {% endfor %}
+<script>
+    $('#newLikeButton').click(function){
+        var post_id;
+        post_id=$(this).attr("data-post_id");
+        $.get('/network/addNewLike/',{post_id:post_id},function(data){
+            $('#likesCount').html(data);
+        })
+    }
+
+</script>
+
+{% endblock %}
+
